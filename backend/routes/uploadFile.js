@@ -1,14 +1,16 @@
+
 const express = require("express");
 const multer = require("multer");
 const xml2js = require("xml2js");
 const fs = require("fs");
-const CreditSchema = require("../models/Schema")
+const CreditReport = require("../models/Schema");
 
 const router = express.Router();
 
+// ✅ Configure Multer (Make sure the "uploads" folder exists)
 const upload = multer({ dest: "uploads/" });
 
-// Upload & Process XML File
+// ✅ Upload & Process XML File
 router.post("/", upload.single("xmlFile"), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
@@ -34,7 +36,7 @@ router.post("/", upload.single("xmlFile"), async (req, res) => {
         const newReport = new CreditReport(extractedData);
         const savedReport = await newReport.save();
 
-        res.status(201).json(savedReport); // Return the save report
+        res.status(201).json(savedReport); // ✅ Return the saved report
 
       } catch (error) {
         console.error("❌ Error saving data:", error);
@@ -44,17 +46,18 @@ router.post("/", upload.single("xmlFile"), async (req, res) => {
   });
 });
 
-//  Extract Data from XML
+// ✅ Extract Data from XML (Including Credit Accounts)
 function extractData(xmlJson) {
   try {
     const applicant = xmlJson.INProfileResponse.Current_Application[0].Current_Application_Details[0].Current_Applicant_Details[0];
     const summary = xmlJson.INProfileResponse.CAIS_Account[0].CAIS_Summary[0];
 
+    // ✅ Check if CAIS_Account_DETAILS exists
     const accounts = xmlJson.INProfileResponse.CAIS_Account[0].CAIS_Account_DETAILS;
     console.log("Raw Credit Account Data:", JSON.stringify(accounts, null, 2));
 
     if (!accounts || !Array.isArray(accounts)) {
-      console.log("❌ No credit accounts found or invalid format!");
+      console.warn("❌ No credit accounts found or invalid format!");
     }
 
     return {
@@ -96,7 +99,7 @@ function extractData(xmlJson) {
         : [],
     };
   } catch (error) {
-    console.log(" Error extracting data:", error);
+    console.error("❌ Error extracting data:", error);
     return {};
   }
 }
