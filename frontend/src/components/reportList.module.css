@@ -1,0 +1,33 @@
+.creditReportParent{
+    text-align: center;
+}
+
+.basicDeatilsAndSummary{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 25%;
+    align-items: center;
+}
+
+.creditScore{
+    font-size: 50px;
+    margin-top: -10px;
+}
+
+.creditAccounts{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 10%;
+   flex-wrap: wrap;
+   align-items: center;
+}
+
+.cards{
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 20px;
+    height: 10%;
+    width: 25rem;
+    margin-top: 10px;
+}
+
