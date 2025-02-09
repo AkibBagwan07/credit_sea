@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const xml2js = require("xml2js");
 const fs = require("fs");
-const CreditReport = require("../models/CreditReport");
+const CreditReport = require("../models/CreditReportSchema");
 
 const router = express.Router();
 
