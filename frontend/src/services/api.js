@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_URL = "https://credit-sea-backend-om6f.onrender.com";
-const API_URL = "http://localhost:5000/api"
+ const API_URL = "https://credit-sea-backend-om6f.onrender.com/api";
+//const API_URL = "http://localhost:5000/api"
 export const uploadFile = async (file) => {
   const formData = new FormData();
   formData.append("xmlFile", file); 
